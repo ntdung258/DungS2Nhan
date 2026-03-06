@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Ngày 8/3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0015 0%, #1a0a2e 50%, #0a0015 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .heart-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vmin;
+            height: 80vmin;
+            z-index: 1;
+        }
+
+        .heart {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .title {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            text-align: center;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 5rem);
+            background: linear-gradient(45deg, #ffd700, #ffb6c1, #ffa07a, #ff69b4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffb6c1;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 182, 193, 0.6); }
+            50% { text-shadow: 0 0 40px rgba(255, 182, 193, 1); }
+        }
+
+        .falling-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .falling-img {
+            position: absolute;
+            opacity: 0.8;
+        }
+
+        .falling-img.emoji {
+            font-size: clamp(30px, 5vw, 60px);
+        }
+
+        .falling-img.photo {
+            width: clamp(80px, 10vw, 150px);
+            height: clamp(80px, 10vw, 150px);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5);
+            border: 3px solid rgba(255, 215, 0, 0.6);
+        }
+
+        .falling-img.photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(25vh) translateX(-100px) rotate(90deg); }
+            50% { transform: translateY(50vh) translateX(100px) rotate(180deg); }
+            75% { transform: translateY(75vh) translateX(-100px) rotate(270deg); }
+            100% { transform: translateY(110vh) translateX(0) rotate(360deg); }
+        }
+
+        .message {
+            position: relative;
+            z-index: 20;
+            max-width: 600px;
+            text-align: center;
+            color: #fff;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            line-height: 1.8;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            animation: fadeInUp 2s ease-out 0.5s both;
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        .sparkle::before {
+            content: '✨';
+            font-size: 20px;
+            animation: sparkleAnim 1.5s ease-out forwards;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                transform: translateY(-30px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .heart-container {
+                width: 90vmin;
+                height: 90vmin;
+            }
+            
+            .message {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-container">
+        <div class="heart" id="heart"></div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="Iu Là Đây.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="falling-images" id="fallingImages"></div>
+
+    <div class="container">
+        <div class="title">
+            <h1>Mừng ngày 8/3</h1>
+            <h1 class="subtitle">Cô Giáo Nhỏ</h1>
+        </div>
+
+        <div class="message">
+            <p>💐 Chúc Nhẫn luôn xinh đẹp, vui vẻ, hạnh phúc và thành công! 💐</p>
+        </div>
+    </div>
+
+    <script>
+        // Tạo trái tim từ hàng triệu hạt sáng
+        function createHeart() {
+            const heart = document.getElementById('heart');
+            const colors = ['#90ee90', '#ff6b9d', '#ffd700', '#00d4ff', '#ba55d3', '#ff8c94', '#66cdaa', '#ffa07a', '#7b68ee', '#98fb98'];
+            
+            // Tạo nhiều lớp để lấp đầy trái tim
+            for (let layer = 0; layer < 10; layer++) {
+                const particlesPerLayer = 200;
+                const scale = 2.5 - (layer * 0.22);
+                
+                for (let i = 0; i < particlesPerLayer; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    const t = (i / particlesPerLayer) * Math.PI * 2;
+                    const x = 16 * Math.pow(Math.sin(t), 3);
+                    const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                    
+                    particle.style.left = `${50 + x * scale}%`;
+                    particle.style.top = `${50 + y * scale}%`;
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.animationDelay = `${Math.random() * 2}s`;
+                    particle.style.boxShadow = `0 0 8px ${colors[Math.floor(Math.random() * colors.length)]}`;
+                    
+                    heart.appendChild(particle);
+                }
+            }
+        }
+
+        // Tạo ảnh rơi
+        function createFallingImages() {
+            const container = document.getElementById('fallingImages');
+            const emojis = ['🌹', '💐', '🌸', '🌺'];
+            const photos = [
+                '1.jpg',
+                '2.jpg',
+                '3.jpg',
+                '4.jpg'
+            ];
+            
+            // Tạo emoji rơi - rơi khắp màn hình
+            for (let i = 0; i < 25; i++) {
+                const img = document.createElement('div');
+                img.className = 'falling-img emoji';
+                img.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                img.style.left = `${Math.random() * 100}%`;
+                img.style.top = `${-20 - Math.random() * 100}%`;
+                img.style.animation = `bounce ${10 + Math.random() * 8}s ease-in-out infinite`;
+                img.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(img);
+            }
+
+            // Tạo khung ảnh rơi - 4 ảnh tập trung trung tâm
+            for (let i = 0; i < 4; i++) {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'falling-img photo';
+                const photoSrc = photos[i % photos.length];
+                photoDiv.innerHTML = `<img src="${photoSrc}" alt="Photo">`;
+                photoDiv.style.left = `${42 + Math.random() * 16}%`;
+                photoDiv.style.top = `${-30 - Math.random() * 80}%`;
+                photoDiv.style.animation = `bounce ${12 + Math.random() * 6}s ease-in-out infinite`;
+                photoDiv.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(photoDiv);
+            }
+        }
+
+        // Tạo hiệu ứng sparkle khi click
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 3; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${e.clientX + (Math.random() - 0.5) * 40}px`;
+                sparkle.style.top = `${e.clientY + (Math.random() - 0.5) * 40}px`;
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1500);
+            }
+        });
+
+        // Khởi tạo
+        createHeart();
+        createFallingImages();
+
+        // Phát nhạc khi click
+        const music = document.getElementById('bgMusic');
+        document.addEventListener('click', () => {
+            if (music.paused) {
+                music.play().catch(e => console.log('Autoplay prevented'));
+            }
+        }, { once: true });
+
+        // Thêm particles liên tục
+        setInterval(() => {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(p => {
+                if (Math.random() > 0.95) {
+                    p.style.transform = `scale(${1 + Math.random()})`;
+                    setTimeout(() => p.style.transform = 'scale(1)', 300);
+                }
+            });
+        }, 100);
+    </script>
+</body>
+</html>
