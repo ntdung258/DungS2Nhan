@@ -488,6 +488,9 @@
                 '17.jpg', '18.jpg', '19.jpg', '20.jpg'
             ];
             
+            // Xáo trộn thứ tự ảnh
+            const shuffled = photos.sort(() => Math.random() - 0.5);
+            
             const topSlider = document.getElementById('topSlider');
             const bottomSlider = document.getElementById('bottomSlider');
             
@@ -498,7 +501,7 @@
             bottomTrack.className = 'slider-track reverse';
             
             // Nhân đôi ảnh để tạo vòng lặp liền mạch
-            const doublePhotos = [...photos, ...photos];
+            const doublePhotos = [...shuffled, ...shuffled];
             
             doublePhotos.forEach((photo, index) => {
                 const img1 = document.createElement('img');
