@@ -31,12 +31,12 @@
         }
 
         .heart-container {
-            position: absolute;
-            top: 50%;
+            position: fixed;
+            top: 48%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80vmin;
-            height: 80vmin;
+            width: 95vmin;
+            height: 95vmin;
             z-index: 1;
         }
 
@@ -69,12 +69,18 @@
 
         .title {
             position: absolute;
-            top: 10%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             z-index: 20;
             text-align: center;
             animation: fadeInDown 1.5s ease-out;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
         }
 
         @keyframes fadeInDown {
@@ -98,7 +104,7 @@
             animation: gradientShift 3s ease infinite;
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         @keyframes gradientShift {
@@ -111,6 +117,8 @@
             color: #ffb6c1;
             text-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
             animation: glow 2s ease-in-out infinite;
+            white-space: nowrap;
+            margin: 0;
         }
 
         @keyframes glow {
@@ -118,46 +126,71 @@
             50% { text-shadow: 0 0 40px rgba(255, 182, 193, 1); }
         }
 
-        .falling-images {
+        .photo-slider {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
+            height: 120px;
+            overflow: hidden;
             pointer-events: none;
             z-index: 5;
         }
 
-        .falling-img {
-            position: absolute;
-            opacity: 0.8;
+        .photo-slider.top {
+            top: 0;
         }
 
-        .falling-img.emoji {
-            font-size: clamp(30px, 5vw, 60px);
+        .photo-slider.bottom {
+            bottom: 0;
         }
 
-        .falling-img.photo {
-            width: clamp(80px, 10vw, 150px);
-            height: clamp(80px, 10vw, 150px);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5);
-            border: 3px solid rgba(255, 215, 0, 0.6);
+        .slider-track {
+            display: flex;
+            gap: 20px;
+            animation: slideLeft 20s linear infinite;
         }
 
-        .falling-img.photo img {
-            width: 100%;
-            height: 100%;
+        .slider-track.reverse {
+            animation: slideRight 20s linear infinite;
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes slideRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .slider-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
             object-fit: cover;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            flex-shrink: 0;
+            animation: wave 3s ease-in-out infinite;
         }
 
-        @keyframes bounce {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(25vh) translateX(-100px) rotate(90deg); }
-            50% { transform: translateY(50vh) translateX(100px) rotate(180deg); }
-            75% { transform: translateY(75vh) translateX(-100px) rotate(270deg); }
-            100% { transform: translateY(110vh) translateX(0) rotate(360deg); }
+        @keyframes wave {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-15px) rotate(5deg) scale(1.05);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            75% {
+                transform: translateY(15px) rotate(-5deg) scale(1.05);
+            }
+        }
+
+        .slider-img.error {
+            display: none;
         }
 
         .message {
@@ -214,10 +247,115 @@
             }
         }
 
+        .shooting-star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            animation: shootingStar 3s linear infinite;
+            z-index: 2;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+        }
+
+        @keyframes shootingStar {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-500px, 500px);
+                opacity: 0;
+            }
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: snowfall linear infinite;
+            z-index: 2;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .falling-flower {
+            position: fixed;
+            font-size: 2em;
+            opacity: 0.7;
+            animation: flowerFall linear infinite;
+            z-index: 3;
+        }
+
+        @keyframes flowerFall {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-10vh) rotate(-360deg);
+            }
+        }
+
+        .falling-number {
+            position: fixed;
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ff69b4, #ffa07a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.8;
+            animation: numberFall linear infinite;
+            z-index: 3;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes numberFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) scale(1);
+                opacity: 0.8;
+            }
+        }
+
         @media (max-width: 768px) {
             .heart-container {
-                width: 90vmin;
-                height: 90vmin;
+                width: 100vmin;
+                height: 100vmin;
+            }
+            
+            .title {
+                padding: 15px 25px;
             }
             
             .message {
@@ -236,16 +374,18 @@
         <source src="Iu Là Đây.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="falling-images" id="fallingImages"></div>
+    <div class="photo-slider top" id="topSlider"></div>
+    <div class="photo-slider bottom" id="bottomSlider"></div>
+    <div id="shootingStars"></div>
+    <div id="snowflakes"></div>
+    <div id="flowers"></div>
+    <div id="numbers"></div>
 
     <div class="container">
-        <div class="title">
-            <h1>Mừng ngày 8/3</h1>
-            <h1 class="subtitle">Cô Giáo Nhỏ</h1>
-        </div>
 
         <div class="message">
-            <p>💐 Chúc Nhẫn luôn xinh đẹp, vui vẻ, hạnh phúc và thành công! 💐</p>
+            <p>🌹 Mừng ngày 8/3 Cô Giáo Nhỏ 💐</p>
+            <p>💐 Chúc Nhẫn mãi xinh đẹp, vui vẻ, hạnh phúc và thành công! 🌹</p>
         </div>
     </div>
 
@@ -279,41 +419,105 @@
             }
         }
 
-        // Tạo ảnh rơi
-        function createFallingImages() {
-            const container = document.getElementById('fallingImages');
-            const emojis = ['🌹', '💐', '🌸', '🌺'];
+        // Tạo sao băng
+        function createShootingStars() {
+            const container = document.getElementById('shootingStars');
+            setInterval(() => {
+                const star = document.createElement('div');
+                star.className = 'shooting-star';
+                star.style.top = Math.random() * 50 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(star);
+                setTimeout(() => star.remove(), 3000);
+            }, 2000);
+        }
+
+        // Tạo tuyết rơi
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'em';
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Tạo hoa rơi
+        function createFallingFlowers() {
+            const container = document.getElementById('flowers');
+            const flowers = ['🌹', '🌸', '🌺', '💐', '🌷'];
+            for (let i = 0; i < 20; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'falling-flower';
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + '%';
+                flower.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                flower.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(flower);
+            }
+        }
+
+        // Tạo số 8 và 3 rơi
+        function createFallingNumbers() {
+            const container = document.getElementById('numbers');
+            const numbers = ['8', '3'];
+            for (let i = 0; i < 15; i++) {
+                const number = document.createElement('div');
+                number.className = 'falling-number';
+                number.innerHTML = numbers[i % 2];
+                number.style.left = Math.random() * 100 + '%';
+                number.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                number.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(number);
+            }
+        }
+
+        // Tạo slide ảnh
+        function createPhotoSliders() {
             const photos = [
-                '1.jpg',
-                '2.jpg',
-                '3.jpg',
-                '4.jpg'
+                '1.jpg', '2.jpg', '3.jpg', '4.jpg',
+                '5.jpg', '6.jpg', '7.jpg', '8.jpg',
+                '9.jpg', '10.jpg', '11.jpg', '12.jpg',
+                '13.jpg', '14.jpg', '15.jpg', '16.jpg',
+                '17.jpg', '18.jpg', '19.jpg', '20.jpg'
             ];
             
-            // Tạo emoji rơi - rơi khắp màn hình
-            for (let i = 0; i < 25; i++) {
-                const img = document.createElement('div');
-                img.className = 'falling-img emoji';
-                img.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                img.style.left = `${Math.random() * 100}%`;
-                img.style.top = `${-20 - Math.random() * 100}%`;
-                img.style.animation = `bounce ${10 + Math.random() * 8}s ease-in-out infinite`;
-                img.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(img);
-            }
-
-            // Tạo khung ảnh rơi - 4 ảnh tập trung trung tâm
-            for (let i = 0; i < 4; i++) {
-                const photoDiv = document.createElement('div');
-                photoDiv.className = 'falling-img photo';
-                const photoSrc = photos[i % photos.length];
-                photoDiv.innerHTML = `<img src="${photoSrc}" alt="Photo">`;
-                photoDiv.style.left = `${42 + Math.random() * 16}%`;
-                photoDiv.style.top = `${-30 - Math.random() * 80}%`;
-                photoDiv.style.animation = `bounce ${12 + Math.random() * 6}s ease-in-out infinite`;
-                photoDiv.style.animationDelay = `${Math.random() * 3}s`;
-                container.appendChild(photoDiv);
-            }
+            const topSlider = document.getElementById('topSlider');
+            const bottomSlider = document.getElementById('bottomSlider');
+            
+            const topTrack = document.createElement('div');
+            topTrack.className = 'slider-track';
+            
+            const bottomTrack = document.createElement('div');
+            bottomTrack.className = 'slider-track reverse';
+            
+            // Nhân đôi ảnh để tạo vòng lặp liền mạch
+            const doublePhotos = [...photos, ...photos];
+            
+            doublePhotos.forEach((photo, index) => {
+                const img1 = document.createElement('img');
+                img1.src = photo;
+                img1.className = 'slider-img';
+                img1.style.animationDelay = `${index * 0.1}s`;
+                img1.onerror = function() { this.classList.add('error'); };
+                topTrack.appendChild(img1);
+                
+                const img2 = document.createElement('img');
+                img2.src = photo;
+                img2.className = 'slider-img';
+                img2.style.animationDelay = `${index * 0.1}s`;
+                img2.onerror = function() { this.classList.add('error'); };
+                bottomTrack.appendChild(img2);
+            });
+            
+            topSlider.appendChild(topTrack);
+            bottomSlider.appendChild(bottomTrack);
         }
 
         // Tạo hiệu ứng sparkle khi click
@@ -331,7 +535,11 @@
 
         // Khởi tạo
         createHeart();
-        createFallingImages();
+        createPhotoSliders();
+        createShootingStars();
+        createSnowflakes();
+        createFallingFlowers();
+        createFallingNumbers();
 
         // Phát nhạc khi click
         const music = document.getElementById('bgMusic');
